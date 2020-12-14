@@ -13,8 +13,10 @@ public enum Weather
 public class WeatherSystem : MonoBehaviour
 {
 
+    [Header("Weather State")]
     public Weather weather;
 
+    [Header("Audios")]
     public AudioClip[] audioClips;
 
     [Header("Systems")]
@@ -25,11 +27,18 @@ public class WeatherSystem : MonoBehaviour
     [Header("Weather Light")]
     public Light2D globalLight;
 
+    [Header("Game Time")]
+    public float GameTime;
+
+    [Header("Global Time Speed")]
+    public float timeSpeed;
     // Start is called before the first frame update
     void Start()
     {
         weather = Weather.SUNNY;
         soundSystem = FindObjectOfType<SoundSystem>();
+        GameTime = 12;
+        timeSpeed = 1;
     }
 
     // Update is called once per frame
@@ -62,6 +71,53 @@ public class WeatherSystem : MonoBehaviour
                 globalLight.color = new Color(0, 0, 186, 0.1f);
                 break;
 
+        }
+
+        if(GameTime > 0)
+        {
+            GameTime -= Time.deltaTime * timeSpeed;
+        }
+        else
+        {
+            int randNum;
+            switch (weather)
+            {
+               
+                case Weather.SUNNY:
+                    weather = Weather.OVERCAST;
+                    GameTime = 8;
+                    break;
+                case Weather.OVERCAST:
+                    randNum = Random.Range(1, 3);
+                    if (randNum == 1)
+                    {
+                        weather = Weather.SUNNY;
+                        GameTime = 12;
+                    }
+                    else
+                    {
+                        weather = Weather.RAINY;
+                        GameTime = 6;
+                    }
+                    break;
+                case Weather.RAINY:
+                    randNum = Random.Range(1, 3);
+                    if(randNum == 1)
+                    {
+                        weather = Weather.OVERCAST;
+                        GameTime = 8;
+                    }
+                    else
+                    {
+                        weather = Weather.THUNDERSTORM;
+                        GameTime = 12;
+                    }
+                    break;
+                case Weather.THUNDERSTORM:
+                    weather = Weather.RAINY;
+                    GameTime = 6;
+                    break;
+            }
         }
     }
 
