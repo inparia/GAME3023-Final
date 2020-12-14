@@ -12,7 +12,8 @@ public class SoundSystem : MonoBehaviour
             return;
         BGM.Stop();
         BGM.clip = music;
-        BGM.Play();
+        StartCoroutine(AudioFade.FadeIn(BGM, 1.0f));
+        //BGM.Play();
     }
 
     public void StopBGM()
