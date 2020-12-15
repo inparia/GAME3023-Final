@@ -11777,7 +11777,7 @@ GameObject:
   - component: {fileID: 1729533058}
   - component: {fileID: 1729533057}
   m_Layer: 0
-  m_Name: RainSystem
+  m_Name: EffectSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11795,7 +11795,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae538baa02cd3a4d919f34b52acd456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rain: {fileID: 1200063693}
+  particles:
+  - {fileID: 1200063693}
 --- !u!4 &1729533058
 Transform:
   m_ObjectHideFlags: 0

@@ -19,7 +19,7 @@ public class WeatherSystem : MonoBehaviour
 
     //[Header("Systems")]
     private SoundSystem soundSystem;
-    private RainSystem rainSystem;
+    private EffectSystem effectSystem;
     private ThunderSystem thunderSystem;
     private ClipSystem clipSystem;
 
@@ -37,7 +37,7 @@ public class WeatherSystem : MonoBehaviour
     {
         weather = Weather.SUNNY;
         soundSystem = FindObjectOfType<SoundSystem>();
-        rainSystem = FindObjectOfType<RainSystem>();
+        effectSystem = FindObjectOfType<EffectSystem>();
         thunderSystem = FindObjectOfType<ThunderSystem>();
         clipSystem = FindObjectOfType<ClipSystem>();
         setGameTime(12);
@@ -53,26 +53,26 @@ public class WeatherSystem : MonoBehaviour
         {
             case Weather.SUNNY:
                 changeMusic(clipSystem.GetClip("Sunny"));
-                rainSystem.StopRain();
+                effectSystem.StopRain();
                 thunderSystem.flashEnabled = false;
                 globalLight.color = new Color(210, 0, 0, 0.1f);
                 break;
             case Weather.RAINY:
                 changeMusic(clipSystem.GetClip("Rain"));
-                rainSystem.PlayRain();
+                effectSystem.PlayRain();
                 thunderSystem.flashEnabled = false;
                 globalLight.color = new Color(0, 0, 186, 0.1f);
                 break;
             case Weather.THUNDERSTORM:
                 changeMusic(clipSystem.GetClip("Thundering"));
-                rainSystem.PlayRain();
+                effectSystem.PlayRain();
                 thunderSystem.flashEnabled = true;
                 globalLight.color = new Color(0, 0, 186, 0.1f);
                 break;
             // For overcast, stop the bgm for quiet environment
             case Weather.OVERCAST:
                 soundSystem.StopBGM();
-                rainSystem.StopRain();
+                effectSystem.StopRain();
                 thunderSystem.flashEnabled = false;
                 globalLight.color = new Color(0, 0, 186, 0.1f);
                 break;
