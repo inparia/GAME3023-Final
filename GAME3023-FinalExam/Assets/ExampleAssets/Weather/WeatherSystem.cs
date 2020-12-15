@@ -35,12 +35,11 @@ public class WeatherSystem : MonoBehaviour
     // Start is called before the first frame update. Initializing the weather state, gametime, and time speed.
     void Start()
     {
-        weather = Weather.SUNNY;
         soundSystem = FindObjectOfType<SoundSystem>();
         effectSystem = FindObjectOfType<EffectSystem>();
         thunderSystem = FindObjectOfType<ThunderSystem>();
         clipSystem = FindObjectOfType<ClipSystem>();
-        setGameTime(12);
+        setWeatherGameTime(Weather.SUNNY, 12);
         timeSpeed = 1;
     }
 
@@ -92,48 +91,45 @@ public class WeatherSystem : MonoBehaviour
             {
                 //Sunny will set weather to overcast.
                 case Weather.SUNNY:
-                    weather = Weather.OVERCAST;
-                    setGameTime(8);
+                    setWeatherGameTime(Weather.OVERCAST, 8);
                     break;
                 case Weather.OVERCAST:
                     // Random number of 1 to 2
                     randNum = Random.Range(1, 3);
-                    if (randNum == 1)
+                    switch(randNum)
                     {
-                        weather = Weather.SUNNY;
-                        setGameTime(12);
-                    }
-                    else
-                    {
-                        weather = Weather.RAINY;
-                        setGameTime(6);
+                        case 1:
+                            setWeatherGameTime(Weather.SUNNY, 12);
+                            break;
+                        case 2:
+                            setWeatherGameTime(Weather.RAINY, 6);
+                            break;
                     }
                     break;
                 case Weather.RAINY:
                     // Random number of 1 to 2
                     randNum = Random.Range(1, 3);
-                    if(randNum == 1)
+                    switch(randNum)
                     {
-                        weather = Weather.OVERCAST;
-                        setGameTime(8);
-                    }
-                    else
-                    {
-                        weather = Weather.THUNDERSTORM;
-                        setGameTime(12);
+                        case 1:
+                            setWeatherGameTime(Weather.OVERCAST, 8);
+                            break;
+                        case 2:
+                            setWeatherGameTime(Weather.THUNDERSTORM, 12);
+                            break;
                     }
                     break;
                 //Thunderstorm will set weather back to rainy.
                 case Weather.THUNDERSTORM:
-                    weather = Weather.RAINY;
-                    setGameTime(6);
+                    setWeatherGameTime(Weather.RAINY, 6);
                     break;
             }
         }
     }
 
-    void setGameTime(int gameTime)
+    void setWeatherGameTime(Weather pweather, int gameTime)
     {
+        weather = pweather;
         GameTime = gameTime;
     }
     // Change bgm of the game by given audio clip.

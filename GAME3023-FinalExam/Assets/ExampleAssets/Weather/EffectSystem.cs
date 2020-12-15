@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class EffectSystem : MonoBehaviour
 {
     [Header("Rain Effect")]
@@ -22,3 +24,6 @@ public class EffectSystem : MonoBehaviour
         particles[0].Stop();
     }
 }
+
+
+

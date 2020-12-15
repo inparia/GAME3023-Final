@@ -11,8 +11,8 @@ public class SoundSystem : MonoBehaviour
         //If given bgm is already playing, don't play it again
         if (BGM.name == music.name)
             return;
-        BGM.Stop();
         //Set BGM to new given music.
+        BGM.Stop();
         BGM.clip = music;
         //BGM Fade in
         StartCoroutine(AudioFade.FadeIn(BGM, 1.0f));
